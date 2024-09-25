@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        span
+        {
+            color:red
+        }
+    </style>
+</head>
+<body>
+
+<form onsubmit="saveInfo(event)">
+
+    <label for="firstName">firstName</label>
+    <input type="text" name="firstName" id="firstName">
+    <span id="error-firstName"></span>
+
+    <label for="lastName">LastName</label>
+    <input type="text" name="LastName" id="LastName">
+    <span id="error-lastName"></span>
+
+    <label for="Email">Email</label>
+    <input type="text" name="Email" id="Email">
+    <span id="error-Email"></span>
+
+    <label for="Password">Password</label>
+    <input type="password" name="Password" id="Password">
+    <span id="error-Password"></span>
+
+    <label for="ConfirmPassword">Confirm Password</label>
+    <input type="password" name="ConfirmPassword" id="ConfirmPassword">
+    <span id="error-ConfirmPassword"></span>
+
+    <input type="submit" value="save">
+</form>
+    <script>
+
+        function saveInfo(e)
+        {
+            e.preventDefault();
+
+            let p = document.querySelectorAll("input");
+
+            p.forEach((element)=>{
+
+                let errormessage = validation(element.name,element.value,"");
+
+            if(errormessage)
+            {
+                document.getElementById(`error-${element.name}`).innerHTML = errormessage;
+            }
+            else
+            {
+                document.getElementById(`error-${element.name}`).innerHTML = "";
+            }
+
+            })
+        }
+
+        function validation(field,value,refvalue)
+        {
+            let errorMessage = "";
+        
+            switch(field)
+            {
+                case "firstName" :
+                case "lastName" :
+                    if(!value)
+                    {
+                        errorMessage = `${field} is required`
+
+                    }
+                    else if( ! RegExp("[A-Za-z]").test(value) )
+                    {
+                    errorMessage = `${field} is invalid`
+                    }
+                    break;
+
+                
+
+            }
+
+
+            return errorMessage;
+        }
+
+    </script>
+    
+</body>
+</html>
